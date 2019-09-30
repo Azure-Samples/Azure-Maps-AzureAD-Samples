@@ -2,10 +2,11 @@
 page_type: sample
 languages:
 - csharp
+- javascript
 products:
-- dotnet
-description: "Add 150 character max description"
-urlFragment: "update-this-to-unique-url-stub"
+- azure-maps
+description: "A collection of samples showing how to integrate Azure Active Directory with Azure Maps."
+urlFragment: "AzureMapsAADSamples"
 ---
 
 # Official Microsoft Sample
