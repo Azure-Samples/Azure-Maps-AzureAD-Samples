@@ -47,7 +47,7 @@ Prior to downloading these samples
 
 ## Setup
 
-### In the Azure Active Directory, create new application registration via [Azure Portal](https://portal.azure.com/)
+### In the Azure Active Directory, [create new application registration](https://portal.azure.com/#blade/Microsoft_AAD_RegisteredApps/applicationsListBlade/quickStartType/AspNetWebAppQuickstartPage/sourceType/docs)
 
 - This application registration will represent the web application(s).
 - Each specific sample will describe the steps necessary for the different authentication protocols.
@@ -65,7 +65,7 @@ run.
 
 ## Runnning the sample
 
-- Running the Web Applicaton samples can be found based on the [AspNetCore MVC v2.2 documentation](https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/start-mvc?view=aspnetcore-2.2&tabs=visual-studio)
+- Running the Web Applicaton samples are based on the [AspNetCore MVC v2.2 documentation](https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/start-mvc?view=aspnetcore-2.2&tabs=visual-studio)
 - Once all the individual sample README.md have been configured, Debug (F5 key) should build and start the application.
 - Make sure to run the web application with HTTPS configured.
 - If prompted for development HTTPS certificate via IIS or AspNetCore, accept the prompt to trust the certificate.
@@ -77,7 +77,7 @@ run.
 - In the case of no server component, you must use implicit grant for an user interactive sign in experience. However,
   in the case for no interactive sign in, some server component must exist to retrieve an access token and provide it
   to the Azure Maps Web SDK.
-- Using Azure Service Authentication Library will help reduce the complexity and cost of credential management and allow for [Azure Managed Identities](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview) to be used on the hosted platform such as Azure Virtual Machines or Azure App Service.
+- Using [Azure Service Authentication Library](https://docs.microsoft.com/en-us/azure/key-vault/service-to-service-authentication) will help reduce the complexity and cost of credential management and allow for [Azure Managed Identities](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview) to be used on the hosted platform such as Azure Virtual Machines or Azure App Service.
 
 ## Contributing
 
