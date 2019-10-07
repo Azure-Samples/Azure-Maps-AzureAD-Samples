@@ -11,7 +11,7 @@ description: "A collection of samples showing how to integrate Azure Active Dire
 urlFragment: "AzureMapsAADSamples"
 ---
 
-# Official Microsoft Sample
+# Azure Maps & Azure Active Directory Samples
 
 <!-- 
 Guidelines on README format: https://review.docs.microsoft.com/help/onboard/admin/samples/concepts/readme-template?branch=master
