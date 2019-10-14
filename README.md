@@ -63,7 +63,7 @@ run.
 - This value should be used in the x-ms-client-id with all HTTP requests.
 - If using any SDK add it to the authenication options (JS).
 
-## Runnning the sample
+## Running the sample
 
 - Running the Web Applicaton samples are based on the [AspNetCore MVC v2.2 documentation](https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/start-mvc?view=aspnetcore-2.2&tabs=visual-studio)
 - Once all the individual sample README.md have been configured, Debug (F5 key) should build and start the application.
