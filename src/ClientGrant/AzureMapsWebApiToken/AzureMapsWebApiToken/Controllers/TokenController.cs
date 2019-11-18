@@ -19,7 +19,7 @@ namespace AzureMapsWebApiToken.Controllers
     public class TokenController : ControllerBase
     {
         /// <summary>
-        /// This token provider simplifies access tokens for Azure Resources. It uses Managed Identity of the deployed resource.
+        /// This token provider simplifies access tokens for Azure Resources. It uses the Managed Identity of the deployed resource.
         /// For instance if this application was deployed to Azure App Service or Azure Virtual Machine, you can assign an Azure AD
         /// identity and this library will use that identity when deployed to production.
         /// </summary>
