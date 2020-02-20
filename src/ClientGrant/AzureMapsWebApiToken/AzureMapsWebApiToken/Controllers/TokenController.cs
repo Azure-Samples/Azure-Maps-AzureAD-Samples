@@ -12,14 +12,14 @@ namespace AzureMapsWebApiToken.Controllers
     /// <summary>
     /// In general, an "open" controller like this is not considered production ready. 
     /// We recommend using <see cref="AuthorizeAttribute"/> and applying Authenication on your application.
-    /// Our recommendated solution is Azure Active Directory but UserName-Password implmentations work too.
+    /// Our recommendated solution is Azure Active Directory but UserName-Password implementations work too.
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class TokenController : ControllerBase
     {
         /// <summary>
-        /// This token provider simplifies access tokens for Azure Resources. It uses Managed Identity of the the deployed resource.
+        /// This token provider simplifies access tokens for Azure Resources. It uses the Managed Identity of the deployed resource.
         /// For instance if this application was deployed to Azure App Service or Azure Virtual Machine, you can assign an Azure AD
         /// identity and this library will use that identity when deployed to production.
         /// </summary>
@@ -34,7 +34,7 @@ namespace AzureMapsWebApiToken.Controllers
         public async Task<IActionResult> GetTokenAsync()
         {
             // tokenProvider will cache the token in memory, if you would like to reduce the dependency on Azure AD we recommend
-            // implementing a distributed cache combinded with using the other methods available on tokenProvider.
+            // implementing a distributed cache combined with using the other methods available on tokenProvider.
             string accessToken = await tokenProvider.GetAccessTokenAsync("https://atlas.microsoft.com/", cancellationToken: HttpContext.RequestAborted);
             
             return Ok(accessToken);
