@@ -1,0 +1,55 @@
+﻿<div class="row">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="col-md-10">
+                <h3>OpenID Connect Map</h3>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            <div id="map" style="width: 100%; height: 600px"></div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.css" type="text/css" />
+<script src="https://atlas.microsoft.com/sdk/javascript/mapcontrol/2/atlas.min.js"></script>
+<script>
+    var map = new atlas.Map("map", {
+        center: [-122.33, 47.64],
+        zoom: 12,
+        language: "en-US",
+        authOptions: {
+            authType: "anonymous",
+            clientId: "eaa6114f-e484-4dc1-bb96-5c6b3fc3d7a9",
+            getToken: function (resolve, reject, map) {
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("GET", "/api/token", true);
+                xhttp.onreadystatechange = function () {
+                    if (this.readyState === 4 && this.status === 200) {
+                        resolve(this.responseText);
+                    } else if (this.status !== 200) {
+                        reject(this.responseText);
+                    }
+                };
+
+                xhttp.send();
+            }
+        },
+        transformRequest: function (url, resourceType) {
+                    if (resourceType.includes('Sprite') || resourceType.includes('Glyphs')) {
+                        return { url: url };
+                    }
+                    return {
+                        url: url.replace("atlas.microsoft.com", "localhost")
+                    };
+        }
+    });
+    map.events.add("tokenacquired", function () {
+        console.log("token acquired");
+    });
+    map.events.add("error", function (err) {
+        console.log(JSON.stringify(err.error));
+    });
+</script>
