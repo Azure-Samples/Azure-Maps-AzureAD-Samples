@@ -65,7 +65,7 @@ This sample shows how a Web application based on AspNetCore can be configured to
 
       4. While still on the Google Client ID page, add in the origin for the Azure AD B2C directory, and add the redirect url with the format of `https://<azuread-b2c>.b2clogin.com/<tenant-id>/oauth2/authresp`, Note that tenant id is used in this sample application, but can be replaced with named identifier.
 
-         ![Google Application](./media/GoogleClientId.png)
+         ![Google Application Configuration](./media/GoogleClientId.PNG)
 
       5. Navigate to the OAuth Consent screen, create a new application which is user type: External.
 
