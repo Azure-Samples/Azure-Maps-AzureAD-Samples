@@ -35,7 +35,7 @@ This sample shows how a Web application based on AspNetCore can be configured to
 
    2. Create the application registration with a display name and select the supported account type: `Accounts in any organization or any identity provider`, specify redirect uri for local debugging as `https://localhost:5001/signin-oidc`
 
-      ![Application Registration](./media/CreateAppRegistration.png)
+      ![Application Registration](./media/CreateAppRegistration.PNG)
 
    3. Once created, go to Authentication and ensure Implicit grant `ID Tokens` and `Access Tokens` are enabled.
 
