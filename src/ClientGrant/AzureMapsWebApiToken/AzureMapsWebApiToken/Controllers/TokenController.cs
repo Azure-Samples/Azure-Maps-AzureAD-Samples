@@ -16,6 +16,7 @@ namespace AzureMapsWebApiToken.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize("SessionToken")]
     public class TokenController : ControllerBase
     {
         /// <summary>
@@ -36,7 +37,6 @@ namespace AzureMapsWebApiToken.Controllers
             // tokenProvider will cache the token in memory, if you would like to reduce the dependency on Azure AD we recommend
             // implementing a distributed cache combined with using the other methods available on tokenProvider.
             string accessToken = await tokenProvider.GetAccessTokenAsync("https://atlas.microsoft.com/", cancellationToken: HttpContext.RequestAborted);
-            
             return Ok(accessToken);
         }
     }
