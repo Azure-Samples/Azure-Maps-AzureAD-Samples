@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Cryptography;
+using System.Collections.Generic;
 
 namespace AzureMapsWebApiToken.Models
 {
@@ -21,7 +22,20 @@ namespace AzureMapsWebApiToken.Models
         {
             var now = DateTime.UtcNow;
             var signingCredentials = new SigningCredentials(CreateSecurityKey(), SecurityAlgorithms.HmacSha256Signature);
-            return jwtTokenHandler.CreateJwtSecurityToken(Issuer, Audience, new ClaimsIdentity(), now, now.AddMinutes(10), now, signingCredentials);
+
+            long jwtTokenId;
+            using (RandomNumberGenerator rng = new RNGCryptoServiceProvider())
+            {
+                var tokenData = new byte[32];
+                rng.GetNonZeroBytes(tokenData);
+                jwtTokenId = BitConverter.ToInt64(tokenData);
+            }
+
+            // add a cryptographically secured random number representing the session id.
+            // this session id can be used to throttle or track much traffic is issued.
+            // For additional protection, you can provide client IP address for the case of tracking source location.
+            var claims = new List<Claim>() { new Claim("jti", jwtTokenId.ToString()) };
+            return jwtTokenHandler.CreateJwtSecurityToken(Issuer, Audience, new ClaimsIdentity(claims), now, now.AddMinutes(10), now, signingCredentials);
         }
 
         public static SecurityKey CreateSecurityKey()
