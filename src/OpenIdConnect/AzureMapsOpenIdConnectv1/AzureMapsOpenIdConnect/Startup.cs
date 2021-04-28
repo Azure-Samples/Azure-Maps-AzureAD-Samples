@@ -11,10 +11,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.Azure.KeyVault;
-using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Azure.Security.KeyVault.Secrets;
+using Azure.Identity;
 
 namespace WebApplication1
 {
@@ -40,15 +40,15 @@ namespace WebApplication1
             services.AddSingleton<AzureAdOptions>();
             services.AddSingleton(sp =>
             {
-                // We recommend using Managed Service Identity to authenticate to Azure Key Vault
-                return new AzureServiceTokenProvider();
+                // We recommend using DefaultAzureCredential to authenticate to Azure Key Vault
+                return new DefaultAzureCredential();
             });
-            services.AddSingleton<IKeyVaultClient>(sp =>
+            services.AddSingleton<SecretClient>(sp =>
             {
                 // Azure Key Vault is required to retrieve the backchannel secret required for Azure AD to complete
                 // the authentication flow.
-                var tokenProvider = sp.GetRequiredService<AzureServiceTokenProvider>();
-                return new KeyVaultClient(new KeyVaultClient.AuthenticationCallback(tokenProvider.KeyVaultTokenCallback));
+                var tokenProvider = sp.GetRequiredService<DefaultAzureCredential>();
+                return new SecretClient(vaultUri: new Uri("vaultURI"), credential: new DefaultAzureCredential());
             });
 
             services.AddAuthentication(sharedOptions =>
