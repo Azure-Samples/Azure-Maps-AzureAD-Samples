@@ -6,16 +6,15 @@
 
 namespace Microsoft.AspNetCore.Authentication
 {
-    using Microsoft.Azure.KeyVault;
     using System.Threading.Tasks;
-
+    using Azure.Security.KeyVault.Secrets;
     public class AzureAdOptions
     {
-        private readonly IKeyVaultClient keyVaultClient;
+        private readonly SecretClient client;
 
-        public AzureAdOptions(IKeyVaultClient keyVaultClient)
+        public AzureAdOptions(SecretClient client)
         {
-            this.keyVaultClient = keyVaultClient;
+            this.client = client;
         }
 
         /// <summary>
@@ -80,7 +79,7 @@ namespace Microsoft.AspNetCore.Authentication
             // in production, we strongly suggest to observe the pressure given on the key vault and consider caching the application secret.
             // it will be necessary to provision a secret and authenticate to Azure AD to complete the authorization code grant flow.
             // We recommend provisioning a key vault and using Managed Service Identity to authenticate to this Key Vault.
-            var secret = await keyVaultClient.GetSecretAsync("https://skymap.vault.azure.net/secrets/SkymapAppPassword/");
+            KeyVaultSecret secret = client.GetSecret("secretName");
             ClientSecret = secret.Value;
         }
     }

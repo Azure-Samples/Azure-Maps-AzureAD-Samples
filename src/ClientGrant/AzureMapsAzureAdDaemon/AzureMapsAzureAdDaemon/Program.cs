@@ -1,4 +1,5 @@
-﻿using Microsoft.Azure.Services.AppAuthentication;
+﻿using Azure.Identity;
+using Azure.Core;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -16,7 +17,7 @@ namespace AzureMapsAzureAdDaemon
         /// For the REST API to authorize correctly, you still must assign Azure role based access control for the managed identity
         /// as explained in the readme.md. There is significant benefit which is outlined in the the readme.
         /// </remarks>
-        private static readonly AzureServiceTokenProvider tokenProvider = new AzureServiceTokenProvider();
+        private static readonly DefaultAzureCredential defaultAzureCredential = new DefaultAzureCredential();
 
         static void Main(string[] args)
         {
@@ -30,8 +31,8 @@ namespace AzureMapsAzureAdDaemon
 
                 // read more about the security definition
                 // https://docs.microsoft.com/en-us/rest/api/maps/search/getsearchpoi#azure-auth
-                string accessToken = tokenProvider.GetAccessTokenAsync("https://atlas.microsoft.com/").Result;
-                requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+                AccessToken accessToken = defaultAzureCredential.GetTokenAsync(new TokenRequestContext(new string[] { "https://atlas.microsoft.com/.default" })).Result;
+                requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken.Token);
 
                 // replace value with your x-ms-client-id found on the Azure Map account.
                 requestMessage.Headers.Add("x-ms-client-id", "bde2322c-4f3e-494d-bc31-fa68db51d5f4");

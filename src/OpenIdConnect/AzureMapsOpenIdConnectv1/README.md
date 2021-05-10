@@ -53,9 +53,10 @@ Why: To store the secret required for the application to acquire an access token
 
 1. There are a few ways to create an Azure Key Vault, the easiest is likely going to the [Azure Portal](https://portal.azure.com/) and searching for Key Vault resource and following the UI. However for production based implmentation we suggest you create an Azure Resource Management template to provide a repeatable deployment.
 2. Once the Key Vault has been created, we must take the secret from the Web Application and [set the secret in the Key Vault](https://docs.microsoft.com/en-us/azure/key-vault/quick-create-portal).
-3. Take the secret id from the portal and update AzureAdOptions.cs for InitializeAsync()
-4. Now we must added the Development Environment principal to access the secret, go to the "access policies" blade, and add an access policy with secret permission "Get". Select principal, and search for the display name of your Development Environment application.
-5. Save the policy, this will grant the application access to read the secret.
+3. Take the secret name from the portal and update AzureAdOptions.cs for InitializeAsync()
+4. Take the Vault URI frome the portal and update Startup.cs for ConfigureServices(IServiceCollection services)
+5. Now we must added the Development Environment principal to access the secret, go to the "access policies" blade, and add an access policy with secret permission "Get". Select principal, and search for the display name of your Development Environment application.
+6. Save the policy, this will grant the application access to read the secret.
 
 #### Create an Azure Maps Account Resource
 
