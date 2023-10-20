@@ -1,56 +1,55 @@
 ﻿using Azure.Identity;
 using Azure.Core;
-using System;
-using System.Net.Http;
 using System.Net.Http.Headers;
 
-namespace AzureMapsAzureAdDaemon
+/// <summary>
+/// This token provider simplifies access tokens for Azure Resources. It uses Managed Identity of the the deployed resource.
+/// For instance if this application was deployed to Azure App Service or Azure Virtual Machine, you can assign an Azure AD
+/// identity and this library will use that identity when deployed to production.
+/// </summary>
+/// <remarks>
+/// For the REST API to authorize correctly, you still must assign Azure role based access control for the managed identity
+/// as explained in the readme.md. There is significant benefit which is outlined in the the readme.
+/// </remarks>
+
+// Azure Map API URL
+const string AzureMapsApiUrl = "https://atlas.microsoft.com/search/poi/json?api-version=1.0&query=statue%20of%20liberty";
+
+// Azure Map API client ID
+const string AzureMapsClientId = "11111111-2222-3333-4444-555555555555";
+
+
+Console.WriteLine("Starting...");
+
+using var httpClient = new HttpClient();
+
+// Create an instance of DefaultAzureCredential
+var defaultAzureCredential = new DefaultAzureCredential();
+
+// Request a token from Azure Identity
+var tokenRequestContext = new TokenRequestContext(new[] { "https://atlas.microsoft.com/.default" });
+var accessToken = await defaultAzureCredential.GetTokenAsync(tokenRequestContext);
+
+using var requestMessage = new HttpRequestMessage(HttpMethod.Get, AzureMapsApiUrl);
+
+// Set the access token in the request headers
+requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken.Token);
+
+// Set the Azure Maps client ID
+requestMessage.Headers.Add("x-ms-client-id", AzureMapsClientId);
+
+using var responseMessage = await httpClient.SendAsync(requestMessage);
+
+if (responseMessage.IsSuccessStatusCode)
 {
-    class Program
-    {
-        /// <summary>
-        /// This token provider simplifies access tokens for Azure Resources. It uses Managed Identity of the the deployed resource.
-        /// For instance if this application was deployed to Azure App Service or Azure Virtual Machine, you can assign an Azure AD
-        /// identity and this library will use that identity when deployed to production.
-        /// </summary>
-        /// <remarks>
-        /// For the REST API to authorize correctly, you still must assign Azure role based access control for the managed identity
-        /// as explained in the readme.md. There is significant benefit which is outlined in the the readme.
-        /// </remarks>
-        private static readonly DefaultAzureCredential defaultAzureCredential = new DefaultAzureCredential();
-
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Hello World!");
-
-            using (HttpClient httpClient = new HttpClient())
-            {
-                // https://docs.microsoft.com/en-us/rest/api/maps/search/getsearchpoi
-                string url = "https://atlas.microsoft.com/search/poi/json?api-version=1.0&query=statue of liberty";
-                HttpRequestMessage requestMessage = new HttpRequestMessage(HttpMethod.Get, url);
-
-                // read more about the security definition
-                // https://docs.microsoft.com/en-us/rest/api/maps/search/getsearchpoi#azure-auth
-                AccessToken accessToken = defaultAzureCredential.GetTokenAsync(new TokenRequestContext(new string[] { "https://atlas.microsoft.com/.default" })).Result;
-                requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken.Token);
-
-                // replace value with your x-ms-client-id found on the Azure Map account.
-                requestMessage.Headers.Add("x-ms-client-id", "bde2322c-4f3e-494d-bc31-fa68db51d5f4");
-
-                HttpResponseMessage responseMessage = httpClient.SendAsync(requestMessage).Result;
-
-                if (responseMessage.IsSuccessStatusCode)
-                {
-                    Console.WriteLine("Response was success!");
-                    Console.WriteLine("Response Body: {0}", responseMessage.Content.ReadAsStringAsync().Result);
-                }
-                else
-                {
-                    Console.WriteLine("Response Failed with Status Code: {0}", responseMessage.StatusCode);
-                    Console.WriteLine("Response Headers: {0}", responseMessage.Headers);
-                    Console.WriteLine("Response Body: {0}", responseMessage.Content.ReadAsStringAsync().Result);
-                }
-            }
-        }
-    }
+    Console.WriteLine("Response was success!");
+    string responseBody = await responseMessage.Content.ReadAsStringAsync();
+    Console.WriteLine($"Response Body: {responseBody}");
+}
+else
+{
+    Console.WriteLine($"Response Failed with Status Code: {responseMessage.StatusCode}");
+    Console.WriteLine($"Response Headers: {responseMessage.Headers}");
+    string responseBody = await responseMessage.Content.ReadAsStringAsync();
+    Console.WriteLine($"Response Body: {responseBody}");
 }

@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34212.112
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureMapsAzureAdDaemon", "src\ClientGrant\AzureMapsAzureAdDaemon\AzureMapsAzureAdDaemon\AzureMapsAzureAdDaemon.csproj", "{B0E687F1-CFDC-4C3C-A460-36F38CA367CE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureMapsWebApiToken", "src\ClientGrant\AzureMapsWebApiToken\AzureMapsWebApiToken\AzureMapsWebApiToken.csproj", "{96B6D50A-4406-49F6-9A40-F219051E01F0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImplicitGrant", "src\ImplicitGrant\AspNetCore2.2\ImplicitGrant.csproj", "{5287AAA5-8A95-45B9-A3FE-1A17518F93AD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AzureMapsOpenIdConnect", "src\OpenIdConnect\AzureMapsOpenIdConnectv1\AzureMapsOpenIdConnect\AzureMapsOpenIdConnect.csproj", "{5D1A2C9A-F604-4485-A692-38BA6D736C6B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B0E687F1-CFDC-4C3C-A460-36F38CA367CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0E687F1-CFDC-4C3C-A460-36F38CA367CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0E687F1-CFDC-4C3C-A460-36F38CA367CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0E687F1-CFDC-4C3C-A460-36F38CA367CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96B6D50A-4406-49F6-9A40-F219051E01F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96B6D50A-4406-49F6-9A40-F219051E01F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96B6D50A-4406-49F6-9A40-F219051E01F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96B6D50A-4406-49F6-9A40-F219051E01F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5287AAA5-8A95-45B9-A3FE-1A17518F93AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5287AAA5-8A95-45B9-A3FE-1A17518F93AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5287AAA5-8A95-45B9-A3FE-1A17518F93AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5287AAA5-8A95-45B9-A3FE-1A17518F93AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D1A2C9A-F604-4485-A692-38BA6D736C6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D1A2C9A-F604-4485-A692-38BA6D736C6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D1A2C9A-F604-4485-A692-38BA6D736C6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D1A2C9A-F604-4485-A692-38BA6D736C6B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FC4F50D8-9694-4032-8D2F-AB4595BDAC9A}
+	EndGlobalSection
+EndGlobal
